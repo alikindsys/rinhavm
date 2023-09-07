@@ -17,13 +17,13 @@ namespace RinhaVM.External.AST {
         //TODO: Não usar isso.
 
         public record File {
-            public string name {get; set;} 
-            public Lexeme expression {get; set;}
+            public required string name {get; set;} 
+            public required Lexeme expression {get; set;}
         }
 
 
         public class Parameter {
-            public string text {get; set;}
+            public required  string text {get; set;}
         }
 
         public enum BinaryOp {
@@ -46,79 +46,79 @@ namespace RinhaVM.External.AST {
     namespace Lexemes {
         public class If : Lexeme {
             public LexemeKind kind => LexemeKind.If;
-            public Lexeme condition {get; set;}
-            public Lexeme then {get; set;}
-            public Lexeme otherwise {get; set;}
+            public required Lexeme condition {get; set;}
+            public required Lexeme then {get; set;}
+            public required Lexeme otherwise {get; set;}
         }
 
         public class Let : Lexeme {
             public LexemeKind kind => LexemeKind.Let;
-            public Parameter name {get; set;}
-            public Lexeme value {get; set;}
-            public Lexeme next {get; set;}
+            public required Parameter name {get; set;}
+            public required Lexeme value {get; set;}
+            public required Lexeme next {get; set;}
         }
 
         public class Str : Lexeme {
             public LexemeKind kind => LexemeKind.Str;
-            public string value {get; set;}
+            public required string value {get; set;}
         }
 
         public class Bool : Lexeme {
             public LexemeKind kind => LexemeKind.Bool;
-            public bool value {get; set;}
+            public required bool value {get; set;}
         }
 
         public class Int : Lexeme {
             public LexemeKind kind => LexemeKind.Int;
-            public int value {get; set;}
+            public required int value {get; set;}
         }
 
         public class Binary : Lexeme {
             public LexemeKind kind => LexemeKind.Binary;
-            public Lexeme lhs {get; set;}
-            public BinaryOp op {get; set;}
-            public Lexeme rhs {get; set;}
+            public required Lexeme lhs {get; set;}
+            public required BinaryOp op {get; set;}
+            public required Lexeme rhs {get; set;}
         }
 
         public class Call : Lexeme {
             public LexemeKind kind => LexemeKind.Call;
-            public Lexeme callee {get; set;}
-            public List<Lexeme> arguments {get; set;}
+            public required Lexeme callee {get; set;}
+            public required List<Lexeme> arguments {get; set;}
         }
 
         public class Function : Lexeme {
             public LexemeKind kind => LexemeKind.Function;
-            public List<Parameter> parameters {get; set;}
-            public Lexeme value {get; set;}
+            public required List<Parameter> parameters {get; set;}
+            public required Lexeme value {get; set;}
 
 
         }
 
         public class Print : Lexeme {
             public LexemeKind kind  => LexemeKind.Print;
-            public Lexeme value {get; set;}
+            public required Lexeme value {get; set;}
         }
 
         public class First : Lexeme {
             public LexemeKind kind => LexemeKind.First;
-            public Lexeme value {get; set;}
+            public required Lexeme value {get; set;}
         }
 
         public class Second : Lexeme {
             public LexemeKind kind => LexemeKind.Second;
-            public Lexeme value {get; set;}
+            public required Lexeme value {get; set;}
         }
 
         public class Tuple : Lexeme {
             public LexemeKind kind => LexemeKind.Tuple;
-            public Lexeme first {get; set;}
-            public Lexeme second {get; set;}
+            public required Lexeme first {get; set;}
+            public required Lexeme second {get; set;}
         }
 
         public class Var : Lexeme {
             
             public LexemeKind kind => LexemeKind.Var;
-            public string text {get; set;}
+            public required string text {get; set;}
         }
     }
 

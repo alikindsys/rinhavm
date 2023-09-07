@@ -40,11 +40,16 @@ namespace RinhaVM.Json {
 
             //Console.WriteLine("[LexemeSerializer] elem is not null.");
 
+// Se fosse kotlin, eu não precisaria disso. Olha o null check lá em cima. pqp.
+#pragma warning disable CS8600
             JsonObject obj = JsonObject.Create(elem.Value);
+#pragma warning restore CS8600
 
             //Console.WriteLine("[LexemeSerializer] Created JsonObject from elem.");
 
+#pragma warning disable CS8602
             if(!obj.TryGetPropertyValue("kind", out node)) {
+#pragma warning restore CS8602
                 return null;
             }
 
@@ -134,7 +139,6 @@ namespace RinhaVM.Json {
 
                 default:
                     throw new InvalidOperationException();
-                    return;
             }
         }
     }
