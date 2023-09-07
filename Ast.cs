@@ -1,0 +1,154 @@
+// Tudo dentro de External faz interface com o rolê das menina
+// o que libera a gente de fazer coisas mto loucas.
+
+// A Spec vai ser implementada em External, pq a gente n tem controle
+// sobre a spec.
+
+// Mesma coisa com a AST delas.
+using System.Text.Json.Serialization;
+using RinhaVM.External.AST.TopLevel;
+
+namespace RinhaVM.External.AST {
+    // Nós sabemos que a serialização é polimórfica em `kind`.
+    
+    // Dados não polimórficos em `kind`.
+    namespace TopLevel {
+        // Esse loc é lindão, mta vontade de dar skip nele.
+        //TODO: Não usar isso.
+
+        public record File {
+            public string name {get; set;} 
+            public Lexeme expression {get; set;}
+        }
+
+
+        public class Parameter {
+            public string text {get; set;}
+        }
+
+        public enum BinaryOp {
+            Add,
+            Sub,
+            Mul,
+            Div,
+            Rem,
+            Eq,
+            Neq,
+            Lt,
+            Gt,
+            Lte,
+            Gte,
+            And,
+            Or
+        }
+    }
+
+    namespace Lexemes {
+        public class If : Lexeme {
+            public LexemeKind kind => LexemeKind.If;
+            public Lexeme condition {get; set;}
+            public Lexeme then {get; set;}
+            public Lexeme otherwise {get; set;}
+        }
+
+        public class Let : Lexeme {
+            public LexemeKind kind => LexemeKind.Let;
+            public Parameter name {get; set;}
+            public Lexeme value {get; set;}
+            public Lexeme next {get; set;}
+        }
+
+        public class Str : Lexeme {
+            public LexemeKind kind => LexemeKind.Str;
+            public string value {get; set;}
+        }
+
+        public class Bool : Lexeme {
+            public LexemeKind kind => LexemeKind.Bool;
+            public bool value {get; set;}
+        }
+
+        public class Int : Lexeme {
+            public LexemeKind kind => LexemeKind.Int;
+            public int value {get; set;}
+        }
+
+        public class Binary : Lexeme {
+            public LexemeKind kind => LexemeKind.Binary;
+            public Lexeme lhs {get; set;}
+            public BinaryOp op {get; set;}
+            public Lexeme rhs {get; set;}
+        }
+
+        public class Call : Lexeme {
+            public LexemeKind kind => LexemeKind.Call;
+            public Lexeme callee {get; set;}
+            public List<Lexeme> arguments {get; set;}
+        }
+
+        public class Function : Lexeme {
+            public LexemeKind kind => LexemeKind.Function;
+            public List<Parameter> parameters {get; set;}
+            public Lexeme value {get; set;}
+
+
+        }
+
+        public class Print : Lexeme {
+            public LexemeKind kind  => LexemeKind.Print;
+            public Lexeme value {get; set;}
+        }
+
+        public class First : Lexeme {
+            public LexemeKind kind => LexemeKind.First;
+            public Lexeme value {get; set;}
+        }
+
+        public class Second : Lexeme {
+            public LexemeKind kind => LexemeKind.Second;
+            public Lexeme value {get; set;}
+        }
+
+        public class Tuple : Lexeme {
+            public LexemeKind kind => LexemeKind.Tuple;
+            public Lexeme first {get; set;}
+            public Lexeme second {get; set;}
+        }
+
+        public class Var : Lexeme {
+            
+            public LexemeKind kind => LexemeKind.Var;
+            public string text {get; set;}
+        }
+    }
+
+    
+    /// <summary>
+    /// Um tipo da ast que pode ser derivado pela field `kind`.
+    /// Regras: 
+    /// - Todo lexema tem que ter `kind`.
+    /// - Todo lexema é um JsonObject.
+    /// </summary>
+    public interface Lexeme {
+        public LexemeKind kind {get;}
+    }
+
+
+    
+    public enum LexemeKind {
+        Int,
+        Str,
+        Call,
+        Binary,
+        Function,
+        Let,
+        If,
+        Print,
+        First,
+        Second,
+        Bool,
+        Tuple,
+        Var
+    }
+
+}
